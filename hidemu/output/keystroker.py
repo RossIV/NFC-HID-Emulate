@@ -20,11 +20,12 @@ The KeyStroker class sends text to a supported OS in the form of phony key strok
 import sys
 import exceptions
 
-
 if sys.platform.startswith('linux'):
     import xkeystroker as key_stroker
 elif sys.platform.startswith('win32'):
     import winkeystroker as key_stroker
+elif sys.platform.startswith('darwin'):
+    import macoskeystroker as key_stroker
 else:
     raise exceptions.UnsupportedPlatformException
 
