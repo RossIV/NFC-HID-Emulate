@@ -39,7 +39,7 @@ class NamedMutex(object):
         """
         self.name = name
         self.acquired = acquired
-        ret = _CreateMutex(None, False, name)
+        ret = _CreateMutex(None, False, str.encode(name))
         if not ret:
             raise ctypes.WinError()
         self.handle = ret
