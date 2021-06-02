@@ -16,11 +16,11 @@ import traceback
 logger = logging.getLogger('hidemu')  # Global logging.Logger instance (defined in main.py)
 
 try:  # Non-standard module imports that may fail
-    import singleproc
-    from output import keystroker
+    from . import singleproc
+    from .output import keystroker
     from smartcard.util import toHexString, toBytes, PACK, HEX, UPPERCASE, COMMA
     from smartcard.Exceptions import CardRequestTimeoutException, CardConnectionException
-    from reader.exceptions import ReaderNotFoundException, FailedException, ConnectionLostException, PyScardFailure
+    from .reader.exceptions import ReaderNotFoundException, FailedException, ConnectionLostException, PyScardFailure
 except BaseException:
     logger.critical(traceback.format_exc())
     raise
@@ -67,7 +67,7 @@ class HIDEmu:
     def bytes_to_type(byte_list, data_type="hex"):
         if data_type == "ascii":
             ascii = ''.join(chr(i) for i in byte_list)
-            ascii = filter(lambda x: x in string.printable, ascii)
+            ascii = [x for x in ascii if x in string.printable]
             return ascii
         elif data_type == "int":
             return HIDEmu._little_endian_value(byte_list)
@@ -137,7 +137,7 @@ class HIDEmu:
         while 1:
             try:
                 time.sleep(1)
-                from reader import autodetect
+                from .reader import autodetect
                 self.logger.info("Reader found")
                 return autodetect.Reader()
             except ReaderNotFoundException:
@@ -225,10 +225,10 @@ class HIDEmu:
                 except CardRequestTimeoutException:
                     # Connection not established within the specified time frame (normal behaviour)
                     pass
-                except FailedException, args:
+                except FailedException as args:
                     # An error occurred while reading card
                     self.logger.warn("Card processing failed: " + str(args))
-                except ConnectionLostException, args:
+                except ConnectionLostException as args:
                     # Card likely removed too quickly
                     self.logger.warn("Card removed too soon: " + str(args))
                 except CardConnectionException:

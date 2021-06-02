@@ -12,8 +12,8 @@ All ACR122 specific code goes here.
 
 import time
 import logging
-import exceptions
-from base import ReaderBase
+from . import exceptions
+from .base import ReaderBase
 from smartcard.CardRequest import CardRequest
 from smartcard.Exceptions import CardConnectionException, NoCardException
 from smartcard.util import toHexString, toBytes
@@ -108,9 +108,9 @@ class Reader(ReaderBase):
     def _output_control(connection, led_state, t1_dur=0x00, t2_dur=0x00, repetitions=0x00, buzzer=0x00):
         try:
             Reader._transmit(connection, PICC_CMD_OUTPUT_CTL, [led_state, 0x04, t1_dur, t2_dur, repetitions, buzzer])
-        except exceptions.UnexpectedErrorCodeException, args:
+        except exceptions.UnexpectedErrorCodeException as args:
             # Current LED State returned via sw2 which _transmit does not expect
-            sw1 = args[3]
+            sw1 = args.args[3]
             if sw1 == 0x90: pass
             else: raise
 
