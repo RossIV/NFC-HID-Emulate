@@ -11,8 +11,8 @@ All Omnikey 5x21 CL specific code goes here.
 """
 
 import logging
-import exceptions
-from base import ReaderBase
+from . import exceptions
+from .base import ReaderBase
 from smartcard.CardRequest import CardRequest
 from smartcard.Exceptions import CardConnectionException, NoCardException
 from smartcard.util import toHexString, toBytes

@@ -21,7 +21,7 @@ class AlreadyLocked(Exception):
 
 def create_lock(lock_name):
     if sys.platform.startswith('win32'):
-        import namedmutex
+        from . import namedmutex
         lock_object = namedmutex.NamedMutex(lock_name)
         try:
             acquired = lock_object.acquire(0.001)
@@ -44,7 +44,7 @@ def create_lock(lock_name):
             except IOError:
                 raise AlreadyLocked
         # (re-)create a pid file
-        file(pid_file, 'w').write(pid)
+        open(pid_file, 'w').write(pid)
         lock_object = open(pid_file, 'r')
         fcntl.flock(lock_object, fcntl.LOCK_EX | fcntl.LOCK_NB)
 

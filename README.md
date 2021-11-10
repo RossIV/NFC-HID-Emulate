@@ -10,10 +10,10 @@ Designed to run as a service in the background (or more accurately, a user daemo
 There are some command line args, you can bring up all currently available options with the "-h" switch.
 
 ## Platforms
-Developed with Python versions 2.7.6 and 2.7.10
+Runs on Python 3.8.5 and 3.9.5
 
 ### Windows
-Tested on Win7 64bit
+Tested on Windows 10 64bit
 
 Maintain same architecture as OS (reader drivers and python stuff)
 
@@ -24,7 +24,7 @@ Requires:
 * Smart Card service required (should start as soon as the reader installs via Plug and Play)
 
 ### Linux
-Tested on Ubuntu 14.04 and 14.10
+Tested on Ubuntu 20.04
 
 Requires:
 
@@ -35,12 +35,8 @@ Requires:
 * swig (to build pyscard from source)
 * pyscard (build latest from source)
 
-### OSX - Unsupported
-Currently no intention to develop the keyboard emulation features required to make the output package work on OSX. Brief attempts to integrate osxkeyboardcontrol.py from Plover project proved fruitless on OSX 10.10.
-
-Since I have no need for OSX support, this option has been shelved. If you need OSX support, it should be possible to emulate key strokes via the "pyobjc-framework-quartz" package and some security/accessibility settings which need to be applied through System Preferences.
-
-Any OSX specific output modules have been removed (the modules were borrowed pretty much verbatim from Plover project anyway).
+### OSX
+Tested on macOS Catalina 10.15.
 
 Requires:
 

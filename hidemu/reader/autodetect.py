@@ -13,7 +13,7 @@ Attempt to detect the reader and select the correct class from the (not so exten
 
 """
 
-import exceptions
+from . import exceptions
 
 from smartcard.System import readers
 from smartcard.pcsc import PCSCExceptions
@@ -35,11 +35,11 @@ def reader_exists(reader_prefix):
 # Search for readers by name and import the appropriate backend module
 # SUPPORT FOR ADDITIONAL READERS MAY BE ADDED IN VIA THIS BLOCK HERE!
 if reader_exists("ACS ACR122"):
-    import acr122 as reader
+    from . import acr122 as reader
 elif reader_exists("OMNIKEY CardMan 5x21-CL"):
-    import omnikey5x21cl as reader
+    from . import omnikey5x21cl as reader
 elif reader_exists("SCM Microsystems Inc. SDI011"):
-    import sdi011 as reader
+    from . import sdi011 as reader
 # elif reader_exists("MY READER"):
 #     import my_reader as reader
 else:

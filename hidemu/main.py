@@ -11,7 +11,7 @@ import json
 import argparse
 import signal
 
-from hidemu import HIDEmu, GracefulExit
+from .hidemu import HIDEmu, GracefulExit
 
 # These values are also used setup.py
 __app_name__ = "NFC HID Emulator"
